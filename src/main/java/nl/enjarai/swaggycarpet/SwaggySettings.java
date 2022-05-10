@@ -1,4 +1,4 @@
-package net.fabricmc.example;
+package nl.enjarai.swaggycarpet;
 
 import carpet.settings.Rule;
 
@@ -11,4 +11,10 @@ public class SwaggySettings {
             category = {"swaggy", SURVIVAL, FEATURE}
     )
     public static boolean dispensersPickUpFish = false;
+
+    @Rule(
+            desc = "Lets dispensers pick up fish and water at the same time using an empty bucket.",
+            category = {"swaggy", SURVIVAL, FEATURE}
+    )
+    public static boolean dispensersPickUpBothFishAndWater = false;
 }

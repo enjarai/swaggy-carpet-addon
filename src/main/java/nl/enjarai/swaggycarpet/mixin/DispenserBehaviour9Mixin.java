@@ -2,6 +2,7 @@ package nl.enjarai.swaggycarpet.mixin;
 
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.entity.Bucketable;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.WaterCreatureEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -18,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.List;
 
 @Mixin(targets = "net.minecraft.block.dispenser.DispenserBehavior$9")
-public abstract class DispenserBehaviour17Mixin {
+public abstract class DispenserBehaviour9Mixin {
 	private BlockPointer pointer;
 
 	@Inject(
@@ -36,10 +37,10 @@ public abstract class DispenserBehaviour17Mixin {
 	private Item pickupFishIfPossible(Item original) {
 		if (SwaggySettings.dispensersPickUpBothFishAndWater) {
 			BlockPos blockPos = pointer.getPos().offset(pointer.getBlockState().get(DispenserBlock.FACING));
-			List<WaterCreatureEntity> list = pointer.getWorld().getEntitiesByClass(
-					WaterCreatureEntity.class, new Box(blockPos), waterEntity -> waterEntity.isAlive() && waterEntity instanceof Bucketable);
+			List<LivingEntity> list = pointer.getWorld().getEntitiesByClass(
+					LivingEntity.class, new Box(blockPos), entity -> entity.isAlive() && entity instanceof Bucketable);
 
-			for (WaterCreatureEntity entity : list) {
+			for (LivingEntity entity : list) {
 				var bucketable = (Bucketable) entity;
 
 				entity.playSound(bucketable.getBucketedSound(), 1.0f, 1.0f);
